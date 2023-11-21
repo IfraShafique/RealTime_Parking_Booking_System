@@ -22,6 +22,9 @@ export default function UserNavbar() {
             <Link to='/user-bookings' >Bookings</Link>
             </li>
             <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">
+            <Link to='/booking-cancellation' >Cancellation</Link>
+            </li>
+            <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">
             <Link to='/' >Logout</Link>
             </li>
             

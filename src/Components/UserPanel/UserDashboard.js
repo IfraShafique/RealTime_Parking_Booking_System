@@ -12,7 +12,7 @@ export default function UserDashboard() {
         navigate('/book-slot')
     }
   return (
-    <div className='w-100% bg-black h-[100vh] text-white'>
+    <div className='w-100% bg-black h-[100%] text-white'>
         <UserNavbar/>
       <div className='mt-30 p-40'>
         
