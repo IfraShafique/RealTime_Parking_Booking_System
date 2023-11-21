@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginButton } from '../AllButton';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -10,18 +12,29 @@ export default function Login() {
     setCredentials({ ...credentials, [fieldName]: value });
   };
 
+
+
   const handleLogin = () => {
     // Check if email and password match your condition
     if (credentials.email === 'abc@gmail.com' && credentials.password === 'user') {
       // Navigate to the user dashboard
       navigate('/user-dashboard');
+        // Login Message
+      toast.success("Login Successfully", {
+        position: toast.POSITION.TOP_CENTER
+      })
     } else {
       // Handle incorrect credentials (you might show an error message)
       console.log('Invalid credentials');
+        // Error Login Message
+      toast.error("Invalid Credentials", {
+        position: toast.POSITION.TOP_CENTER
+      })
     }
   };
   return (
     <div id='login' className='bg-black w-[100%] h-[100%]'>
+      <ToastContainer/>
     <div className='flex xl:mt-[12em] 2xl:mt-[20em] mt-[3em] pt-20 flex-wrap justify-center lg:w-[60%] xl:w-[40%] w-[100%] m-auto '>
         <h1 className='font-bold md:text-6xl text-3xl text-red-600 mx-auto'>USER LOGIN</h1>
       <div className='my-10 w-[100%] flex justify-center'>

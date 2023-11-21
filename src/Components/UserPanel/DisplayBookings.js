@@ -19,7 +19,7 @@ export default function DisplayBookings() {
                   <th className="border-b-[1px]  border-red-700  w-[15%] pb-5">
                     Parking Slot
                   </th>
-                  <th className="border-b-[1px]  border-red-700 w-[25%] pb-5">
+                  <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
                     Data
                   </th>
                   <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
@@ -37,22 +37,22 @@ export default function DisplayBookings() {
 
 
                   <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-15%]">
                       Area 1
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
                       Slot 5
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[25%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
                       20-12-2023
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
                       6:00 PM
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[8%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
                       2 Hours
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%] text-green-700">
                       Booked
                     </th>
                     {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
@@ -62,22 +62,22 @@ export default function DisplayBookings() {
 
 
                   <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-15%]">
                       Area 2
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
                       Slot 1
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[25%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
                       14-12-2023
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
                       1:00 PM
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[8%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
                       2 Hours
                     </th>
-                    <th className="border-b-[1px] border-r-[1px] border-red-700 py-4 w-[15%]">
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%] text-green-700">
                       Booked
                     </th>
                     {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">

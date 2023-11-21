@@ -12,20 +12,20 @@ export default function UserDashboard() {
         navigate('/book-slot')
     }
   return (
-    <div className='w-100% bg-black h-[100%] text-white'>
+    <div className='w-100% bg-black h-[100%] mx-auto text-white'>
         <UserNavbar/>
-      <div className='mt-30 p-40'>
+      <div className='mt-30 lg:p-40 sm:p-20 max-sm:py-16'>
         
-        <h1 className='font-bold text-5xl'>Reserve The Parking </h1>
+        <h1 className='font-bold md:text-5xl text-3xl text-center'>Reserve The Parking </h1>
 
-            <p className='pt-28 text-center font-semibold sm:text-3xl text-2xl'>Select the Parking Area</p>
-        <div className='flex w-[100%]'>
+            <p className='sm:pt-28 pt-12 text-center font-semibold sm:text-3xl text-2xl'>Select the Parking Area</p>
+        <div className='flex w-[100%] max-md:flex-wrap justify-center mx-auto'>
 
-            <img src={img1} alt="" className='w-[30%] mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer ' 
+            <img src={img1} alt="" className='sm:w-[30%] w-[70%] sm:mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer ' 
             onClick={handleImageClick} />
-            <img src={img2} alt="" className='w-[30%] mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer ' 
+            <img src={img2} alt="" className='sm:w-[30%] w-[70%] sm:mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer ' 
             onClick={handleImageClick}/>
-            <img src={img3} alt="" className='w-[30%] mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer ' 
+            <img src={img3} alt="" className='sm:w-[30%] w-[70%] sm:mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer ' 
             onClick={handleImageClick}/>
         </div>
       </div>
