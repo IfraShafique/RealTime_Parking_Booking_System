@@ -19,17 +19,24 @@ export default function Login() {
     if (credentials.email === 'abc@gmail.com' && credentials.password === 'user') {
       // Navigate to the user dashboard
       navigate('/user-dashboard');
-        // Login Message
+      // Login Message
       toast.success("Login Successfully", {
         position: toast.POSITION.TOP_CENTER
-      })
+      });
+    } else if (credentials.email === 'admin@gmail.com' && credentials.password === 'admin') {
+      // Navigate to the user dashboard
+      navigate('/admin-dashboard');
+      // Login Message
+      toast.success("Login Successfully", {
+        position: toast.POSITION.TOP_CENTER
+      });
     } else {
       // Handle incorrect credentials (you might show an error message)
       console.log('Invalid credentials');
-        // Error Login Message
+      // Error Login Message
       toast.error("Invalid Credentials", {
         position: toast.POSITION.TOP_CENTER
-      })
+      });
     }
   };
   return (

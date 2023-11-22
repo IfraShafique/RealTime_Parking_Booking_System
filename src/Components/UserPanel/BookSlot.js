@@ -4,6 +4,7 @@ import ParkingSlotImages from './ParkingSlotImages';
 import { BookBtn } from '../AllButton';
 
 export default function BookSlot() {
+   
   return (
     <div className='w-100% bg-black h-[100%] text-white mx-auto'>
    
