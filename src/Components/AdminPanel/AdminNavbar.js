@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../Images/logo1.png";
+import logo from "../../assets/Images/logo1.png";
 import { Link as ScrollLink } from 'react-scroll';
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,7 @@ export default function AdminNavbar() {
             <Link to='/registereduser' >Users</Link>
             </li>
             <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">
-            <Link to='/feedback' >Settings</Link>
+            <Link to='/settings' >Settings</Link>
             </li>
             <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">
             <Link to='/' >Logout</Link>

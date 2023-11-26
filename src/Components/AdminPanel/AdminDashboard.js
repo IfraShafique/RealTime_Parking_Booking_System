@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminNavbar from './AdminNavbar'
+import Feedback from './Feedback'
 
 export default function AdminDashboard() {
   return (
@@ -89,6 +90,8 @@ export default function AdminDashboard() {
                   
                 </tbody>
               </table>
+
+              <Feedback/>
             </div>
 
   </div>

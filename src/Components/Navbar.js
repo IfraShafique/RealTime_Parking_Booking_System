@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./Images/logo1.png";
+import logo from "./../assets/Images/logo1.png";
 import { Link as ScrollLink } from 'react-scroll';
 import { Link } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from 'react'
-import img6 from '../Images/img6.jpg'
-import { SubmitBtn } from "../AllButton";
+import img6 from '../../assets/Images/img6.jpg'
+import { SubmitBtn } from "../../Utils/AllButton";
 // import { ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
@@ -46,7 +46,7 @@ export default function RegisterForm() {
         <form className="flex flex-col">
           {fields.map((field) => (
             <div key={field.name} className="mb-3">
-              <label htmlFor={field.name} className="block text-sm font-medium text-gray-700 text-red-800 xl:text-3xl text-xl">
+              <label htmlFor={field.name} className="block text-sm font-medium text-white text-red-800 xl:text-2xl text-xl">
                 {field.label}
               </label>
               <input

@@ -1,7 +1,7 @@
 import React from 'react'
 import UserNavbar from './UserNavbar'
 import ParkingSlotImages from './ParkingSlotImages';
-import { BookBtn } from '../AllButton';
+import { BookBtn } from '../../Utils/AllButton';
 
 export default function BookSlot() {
    

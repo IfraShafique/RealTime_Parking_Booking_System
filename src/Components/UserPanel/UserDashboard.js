@@ -1,8 +1,8 @@
 import React from 'react'
 import UserNavbar from './UserNavbar'
-import img1 from '../Images/park1.jpg'
-import img2 from '../Images/park2.jpg'
-import img3 from '../Images/park3.jpg'
+import img1 from '../../assets/Images/park1.jpg'
+import img2 from '../../assets/Images/park2.jpg'
+import img3 from '../../assets/Images/park3.jpg'
 import { useNavigate } from 'react-router-dom'
 
 export default function UserDashboard() {

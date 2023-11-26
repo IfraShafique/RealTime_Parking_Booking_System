@@ -1,5 +1,5 @@
 import React from 'react'
-import {SendButton} from './AllButton'
+import {SendButton} from '../Utils/AllButton'
 
 export default function Contact() {
   return (

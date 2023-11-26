@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import slot1 from '../Images/slot1.jpg'
-import slot2 from '../Images/slot2.jpg'
-import slot3 from '../Images/slot3.jpg'
-import slot4 from '../Images/slot4.jpg'
-import slot5 from '../Images/slot5.jpg'
-import slot6 from '../Images/slot6.jpg'
+import slot1 from '../../assets/Images/slot1.jpg'
+import slot2 from '../../assets/Images/slot2.jpg'
+import slot3 from '../../assets/Images/slot3.jpg'
+import slot4 from '../../assets/Images/slot4.jpg'
+import slot5 from '../../assets/Images/slot5.jpg'
+import slot6 from '../../assets/Images/slot6.jpg'
 
 export default function ParkingSlotImages() {
     const [selectedImage, setSelectedImage] = useState(null);

@@ -1,5 +1,5 @@
 import React from "react";
-import img1 from "./Images/img4.avif";
+import img1 from "./../assets/Images/img4.avif";
 import Navbar from "./Navbar";
 import Login from "./Registration/Login";
 import About from "./About";
