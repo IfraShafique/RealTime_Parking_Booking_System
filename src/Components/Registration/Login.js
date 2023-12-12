@@ -3,42 +3,85 @@ import { useNavigate } from 'react-router-dom';
 import { LoginButton } from '../../Utils/AllButton';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { useAuth } from '../../pages/ProtectedRoutes/AuthContext';
 
 export default function Login() {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const login = useAuth();
+  const [error, setError] = useState();
 
-  const handleInputChange = (fieldName, value) => {
-    setCredentials({ ...credentials, [fieldName]: value });
+  const handleLoginChange = (e) => {
+    setEmail(e.target.value);
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  const handleLogin = () => {
-    // Check if email and password match your condition
-    if (credentials.email === 'abc@gmail.com' && credentials.password === 'user') {
-      // Navigate to the user dashboard
-      navigate('/user-dashboard');
-      // Login Message
-      toast.success("Login Successfully", {
-        position: toast.POSITION.TOP_CENTER
+    if (!email || !password) {
+      toast.error('Email and password are required.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_CONNECTION_URI}/login`,
+        { email, password },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const token = response.data.token;
+      const userData = response.data;
+
+      // Now use the login function obtained from useAuth
+      if (login && login.login) {
+        login.login(userData);
+      } else {
+        console.error("Login function is not available");
+      }
+
+      if (userData && userData._id) {
+        console.log('ID:', userData._id);
+      }
+      console.log('role:', userData.role);
+      console.log('Token:', token);
+
+      if (userData.role === 'admin') {
+        localStorage.setItem('jwt', token);
+        navigate('/admin-dashboard');
+      } else if (userData.role === 'user') {
+        localStorage.setItem('jwt', token);
+        navigate('/user-dashboard');
+      } else {
+        console.log('Invalid Credentials');
+        toast.error("Invalid Credentials");
+      }
+
+      toast.success('Login Successful');
+      setEmail("");
+      setPassword('');
+    } catch (error) {
+      // setError(error.response?.data?.message || 'An error occurred');
+      console.error('Login Error:', error);
+      toast.error('Invalid Credentials', {
+        position: toast.POSITION.TOP_CENTER,
       });
-    } else if (credentials.email === 'admin@gmail.com' && credentials.password === 'admin') {
-      // Navigate to the user dashboard
-      navigate('/admin-dashboard');
-      // Login Message
-      toast.success("Login Successfully", {
-        position: toast.POSITION.TOP_CENTER
-      });
-    } else {
-      // Handle incorrect credentials (you might show an error message)
-      console.log('Invalid credentials');
-      // Error Login Message
-      toast.error("Invalid Credentials", {
-        position: toast.POSITION.TOP_CENTER
-      });
+      // You can display an error message to the user if needed
+      // dispatch(setError('Invalid Credentials'));
     }
   };
+  
   return (
     <div id='login' className='bg-black w-[100%] h-[100%]'>
       <ToastContainer/>
@@ -46,17 +89,18 @@ export default function Login() {
         <h1 className='font-bold md:text-6xl text-3xl text-red-600 mx-auto'>USER LOGIN</h1>
       <div className='my-10 w-[100%] flex justify-center'>
         <label htmlFor="Enter an Email" className='sm:text-2xl font-semibold mr-12 text-white '>Email</label>
-        <input type="email" name='email' value={credentials.email} className='sm:w-[70%] h-[6vh] text-red-800 px-4 sm:text-[20px] rounded-lg' 
-        onChange={(e) => handleInputChange('email', e.target.value)} />
+        <input type="email" name='email'  className='sm:w-[70%] h-[6vh] text-red-800 px-4 sm:text-[20px] rounded-lg' 
+        onChange={handleLoginChange} />
       </div>
 
       <div className='mb-10 w-[100%] flex justify-center'>
         <label htmlFor="Enter an Password" className='sm:text-2xl font-semibold sm:mr-3 mr-6 text-white '>Password</label>         
-        <input type="password" name='password' value={credentials.password} className='sm:w-[70%] h-[6vh] text-red-800 px-4 
-        sm:text-[20px] rounded-lg' onChange={(e) => handleInputChange('password', e.target.value)}/>
+        <input type="password" name='password'  className='sm:w-[70%] h-[6vh] text-red-800 px-4 
+        sm:text-[20px] rounded-lg' onChange={handlePasswordChange}/>
       </div>
     <div className=' my-4'>        
     <LoginButton label="Login" onClick={handleLogin}/>
+    <p>{error}</p>
 
     </div>
     </div>

@@ -4,7 +4,7 @@ import Feedback from './Feedback'
 
 export default function AdminDashboard() {
   return (
-    <div className='w-[100%] h-[100vh] bg-black text-white'>
+    <div className='w-[100%] h-[100%] bg-black text-white'>
       <AdminNavbar/>
 
       <div className='mt-30 lg:p-40 max-md:px-5 max-md:pt-20'>

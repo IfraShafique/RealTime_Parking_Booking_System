@@ -23,7 +23,7 @@ export default function Home() {
       </p>
 
       <p className="sm:w-48 w-28 text-white sm:text-2xl font-semibold text-center sm:py-3 py-1 items-center bg-black sm:ml-5 ml-2 rounded-lg 
-      cursor-pointer hover:bg-white hover:text-red-800"><Link to='login'>Reserve Now !</Link></p><br/>
+      cursor-pointer hover:bg-white hover:text-red-800"><Link to='/registeration'>Reserve Now !</Link></p><br/>
       </div>
       <Login/>
       <About/>

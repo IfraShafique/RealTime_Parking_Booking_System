@@ -25,7 +25,7 @@ export default function Navbar() {
             <ScrollLink to='login' smooth={true} duration={500}>Login</ScrollLink>
             </li>
             <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">
-            <Link to="/register">Register</Link>
+            <Link to="/registeration">Register</Link>
             </li>
           </ul>
         </div>

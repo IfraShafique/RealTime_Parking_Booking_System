@@ -13,7 +13,7 @@ export default function Settings() {
         </div>
 
 
-            <div className='mt-20 sm:w-[70%] lg:w-[55%] mx-auto text-xl '>
+            <div className='mt-20 sm:w-[70%] lg:w-[55%] mx-auto sm:text-xl '>
                 <p className='cursor-pointer hover:text-red-700 mb-4 border-b-2 pb-2 border-red-700'>
                     Change Email Address
                 </p>

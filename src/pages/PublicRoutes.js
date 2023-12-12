@@ -10,7 +10,7 @@ export const PublicRoutes = () => {
         <Routes>
 
             <Route path="/" element={<Home/>}/>
-            <Route path='/register' element={<RegisterForm/>}/>
+            <Route path='/registeration' element={<RegisterForm/>}/>
 
         </Routes>
     </BrowserRouter>
