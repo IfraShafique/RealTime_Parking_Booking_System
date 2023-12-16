@@ -25,7 +25,7 @@ export default function AdminNavbar() {
             <Link to='/settings' >Settings</Link>
             </li>
             <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">
-            <Link to='/' >Logout</Link>
+            <Link to='/logout' >Logout</Link>
             </li>
             
             {/* <li className="md:ml-12 md:px-6 max-sm:px-2 sm:py-2 py-1 rounded-[25px] cursor-pointer hover:bg-red-600 hover:font-bold hover:animate-pulse">

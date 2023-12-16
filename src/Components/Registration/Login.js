@@ -23,12 +23,12 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     if (!email || !password) {
       toast.error('Email and password are required.');
       return;
     }
-
+  
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_CONNECTION_URI}/login`,
@@ -40,23 +40,20 @@ export default function Login() {
           },
         }
       );
-
+  
+      console.log('API Response:', response);
+  
       const token = response.data.token;
       const userData = response.data;
-
-      // Now use the login function obtained from useAuth
-      if (login && login.login) {
-        login.login(userData);
-      } else {
-        console.error("Login function is not available");
-      }
-
+  
+      login.login(userData);
+  
       if (userData && userData._id) {
         console.log('ID:', userData._id);
       }
-      console.log('role:', userData.role);
+      console.log('Role:', userData.role);
       console.log('Token:', token);
-
+  
       if (userData.role === 'admin') {
         localStorage.setItem('jwt', token);
         navigate('/admin-dashboard');
@@ -65,22 +62,30 @@ export default function Login() {
         navigate('/user-dashboard');
       } else {
         console.log('Invalid Credentials');
-        toast.error("Invalid Credentials");
+        toast.error('Invalid Credentials');
       }
-
+  
       toast.success('Login Successful');
       setEmail("");
       setPassword('');
     } catch (error) {
-      // setError(error.response?.data?.message || 'An error occurred');
       console.error('Login Error:', error);
-      toast.error('Invalid Credentials', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      // You can display an error message to the user if needed
-      // dispatch(setError('Invalid Credentials'));
+      if (error.response) {
+        console.log('Response Data:', error.response.data);
+        console.log('Response Status:', error.response.status);
+  
+        // Handle specific authentication errors
+        if (error.response.status === 403 && error.response.data.includes('User not found')) {
+          toast.error('User not found. Please check your credentials.');
+        } else {
+          toast.error('Authentication error. Please try again.');
+        }
+      } else {
+        toast.error('An error occurred while processing your request.');
+      }
     }
   };
+  
   
   return (
     <div id='login' className='bg-black w-[100%] h-[100%]'>

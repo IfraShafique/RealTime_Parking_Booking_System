@@ -2,13 +2,23 @@ import React from 'react';
 import { PublicRoutes } from './pages/PublicRoutes';
 import { UserRoutes } from './pages/UserRoutes';
 import { AdminRoutes } from './pages/AdminRoutes';
+import { AuthProvider } from './pages/ProtectedRoutes/AuthContext';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 
-function App() {
+const App = () => {
+  // const location = useLocation();
+  // console.log('Current location:', location.pathname);
+  
   return (
     <>
-      <PublicRoutes/>
-      <UserRoutes/>
-      <AdminRoutes/>
+   <BrowserRouter>
+      {/* Wrap your routes with AuthProvider */}
+      {/* <AuthProvider> */}
+        <PublicRoutes />
+        <UserRoutes />
+        <AdminRoutes />
+      {/* </AuthProvider> */}
+    </BrowserRouter>
     </>
   );
 }
