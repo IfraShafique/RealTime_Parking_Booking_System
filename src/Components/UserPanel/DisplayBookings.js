@@ -1,6 +1,5 @@
 import React from 'react'
 import UserNavbar from './UserNavbar'
-import park4 from '../../assets/Images/img6.avif'
 
 export default function DisplayBookings() {
   return (

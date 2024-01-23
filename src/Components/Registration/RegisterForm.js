@@ -2,13 +2,11 @@ import { useState } from "react";
 import React from 'react'
 import img6 from '../../assets/Images/img6.jpg'
 import { SubmitBtn } from "../../Utils/AllButton";
-// import { ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
-import Navbar from "../Navbar";
-import axios from "axios";
-// import { Toast, ToastContainer } from "react-toastify/dist/components";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { postRequest, headers } from "../../Utils/requests";
+import { contactValidation, passwordValidation, valdateEmptyFields } from "../../Utils/validations";
 
 
 export default function RegisterForm() {
@@ -28,52 +26,56 @@ export default function RegisterForm() {
   const handleSubmit = async(e) => {
     e.preventDefault();
 
-    if (Object.values(formData).some(value => value === '')) {
-      toast.error('Please fill all the fields', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    // if (Object.values(formData).some(value => value === '')) {
+    //   toast.error('Please fill all the fields', {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    if(valdateEmptyFields(formData)){
       return;
     } 
     
     // Contact validation
-    else if (!/^\d{11}$/.test(formData.contact)) {
-      toast.error('Contact no should be exactly 11 characters', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    else if(!contactValidation(formData.contact)){
       return;
-    } 
-    
+    }
+   
     // Password Validation 
     else if (formData.password.length < 6) {
       toast.error('Password must be consist of 6 characters', {
         position: toast.POSITION.TOP_CENTER,
       });
       return;
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&!?])[A-Za-z\d@#$%&!?]+$/.test(formData.password)) {
-      toast.error('Password should contain at least one letter, one number, and one special character', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      return;
     }
-
-    
-
+      // Password Validation
+      else if(!passwordValidation(formData.password)){
+        return;
+      }
+    //  else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&!?])[A-Za-z\d@#$%&!?]+$/.test(formData.password)) {
+    //   toast.error('Password should contain at least one letter, one number, and one special character', {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    //   return;
+    // }
 
     try {
       console.log('Process Environment:', process.env); 
       console.log('API URL:', process.env.REACT_APP_CONNECTION_URI);
-      const response = await axios.post(
-        `${process.env.REACT_APP_CONNECTION_URI}/registeration`,
-        formData,  // Remove the comma here
-        {
-          withCredentials: true,  // Change "WithCredentials" to "withCredentials"
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      await postRequest('registration', formData, {
+        withCredentials: true,
+        headers
+      })
+      // axios.post(
+      //   `${process.env.REACT_APP_CONNECTION_URI}/registeration`,
+      //   formData,  // Remove the comma here
+      //   {
+      //     withCredentials: true,  // Change "WithCredentials" to "withCredentials"
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
 
-      console.log(response.data);
+      // console.log(response.data);
 
       toast.success('Registration Successful', {
         position: 'top-center',
@@ -104,6 +106,7 @@ export default function RegisterForm() {
 
   return (
     <div className="bg-black w-[100%] flex ">
+
        <ToastContainer/>
       {/* left side */}
       <div className="w-[60%] lg:w-[50%] max-lg:hidden">
@@ -118,7 +121,7 @@ export default function RegisterForm() {
 
       <div className="max-sm:w-[90%] m-auto mt-[8%] max-sm:h-[100vh]">
         <h1 className="font-bold xl:text-6xl lg:text-4xl text-3xl mx-auto text-red-600 mx-auto sm:mb-10 mb-5">Registration Form</h1>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col">
           {fields.map((field) => (
             <div key={field.name} className="mb-3">
               <label htmlFor={field.name} className="block text-sm font-medium text-white text-red-800 xl:text-2xl text-xl">
@@ -136,7 +139,7 @@ export default function RegisterForm() {
             </div>
           ))}
           <div className="xl:mt-8 mt-4">
-            <SubmitBtn label="Register" />
+            <SubmitBtn label="Register" onClick={handleSubmit} />
             <p className="xl:mt-4 mt-2 xl:text-xl sm:pb-10">
               Already have an account,{' '}
               <Link to='/'  className="text-red-600 font-bold">

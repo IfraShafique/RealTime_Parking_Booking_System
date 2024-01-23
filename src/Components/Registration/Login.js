@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { LoginButton } from '../../Utils/AllButton';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 import { useAuth } from '../../pages/ProtectedRoutes/AuthContext';
+import { headers, postRequest } from '../../Utils/requests';
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -21,6 +21,7 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
+  // login function
   const handleLogin = async (e) => {
     e.preventDefault();
   
@@ -30,21 +31,32 @@ export default function Login() {
     }
   
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_CONNECTION_URI}/login`,
-        { email, password },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await postRequest('login', { email, password }, {
+        withCredentials: true,
+        headers,
+      });
+      // axios.post(
+      //   `${process.env.REACT_APP_CONNECTION_URI}/login`,
+      //   { email, password },
+      //   {
+      //     withCredentials: true,
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
   
       console.log('API Response:', response);
-  
-      const token = response.data.token;
+      
       const userData = response.data;
+      if (!userData || !userData.token) {
+        console.error('Invalid response format. Token is missing.');
+        toast.error('Authentication error. Please try again.');
+        return;
+      }
+
+      const token = userData.token;
+      console.log('Token:', token);
   
       login.login(userData);
   
@@ -82,6 +94,7 @@ export default function Login() {
         }
       } else {
         toast.error('An error occurred while processing your request.');
+        setError("Invallid Credentials");
       }
     }
   };

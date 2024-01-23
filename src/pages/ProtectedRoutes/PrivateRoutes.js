@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import {jwtDecode} from "jwt-decode"; // Import jwtDecode from the correct library
 
 export const PrivateRoutes = ({ children, expectedRole }) => {
   const { isAuthenticated, user } = useAuth();

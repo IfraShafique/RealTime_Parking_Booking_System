@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import UserDashboard from '../Components/UserPanel/UserDashboard';
 import BookSlot from '../Components/UserPanel/BookSlot';
 import DisplayBookings from '../Components/UserPanel/DisplayBookings';
