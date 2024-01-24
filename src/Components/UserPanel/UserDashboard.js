@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserNavbar from './UserNavbar';
 import img1 from '../../assets/Images/park1.jpg';
 import img2 from '../../assets/Images/park2.jpg';
@@ -10,6 +10,7 @@ import { headers, postRequest, decodedToken } from '../../Utils/requests';
 
 export default function UserDashboard() {
   const navigate = useNavigate();
+  const [parkingImages, setParkingImages] = useState([]);
 
   const handleImageClick = async (imageName) => {
     try {
@@ -29,14 +30,17 @@ export default function UserDashboard() {
         headers
       );
 
-      toast.success("Successfully");
-      navigate("/book-slot");
+      toast.success('Successfully', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      navigate("/book-slot",{ state: {selectedImage: imageName}});
     } catch (error) {
       console.error(error);
       toast.error(error);
     }
   };
-
+  
   return (
     <div className="w-100% bg-black h-[100%] mx-auto text-white">
       <UserNavbar />
@@ -50,19 +54,19 @@ export default function UserDashboard() {
         <div className="flex w-[100%] max-md:flex-wrap justify-center mx-auto">
           <img
             src={img1}
-            alt=""
+            alt="park1.jpg"
             className="sm:w-[30%] w-[70%] sm:mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer "
             onClick={() => handleImageClick("park1.jpg")}
           />
           <img
             src={img2}
-            alt=""
+            alt="park2.jpg"
             className="sm:w-[30%] w-[70%] sm:mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer "
             onClick={() => handleImageClick("park2.jpg")}
           />
           <img
             src={img3}
-            alt=""
+            alt="park3.jpg"
             className="sm:w-[30%] w-[70%] sm:mr-4 mx-auto mt-10 rounded hover:shadow-lg hover:shadow-rose-700 cursor-pointer "
             onClick={() => handleImageClick("park3.jpg")}
           />

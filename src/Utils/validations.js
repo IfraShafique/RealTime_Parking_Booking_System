@@ -1,5 +1,9 @@
 import { toast } from "react-toastify";
 
+// globally create the regex for contact and password validation
+const contactRegex = /^\d{11}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&!?])[A-Za-z\d@#$%&!?]+$/;
+
 // No field should be empty
 export const valdateEmptyFields = (formData) => {
     if (Object.values(formData).some(value => value === '')) {
@@ -12,9 +16,7 @@ export const valdateEmptyFields = (formData) => {
 }
 
 // contact validation
-export const contactValidation = (contact) => {
-    const contactRegex = /^\d{11}$/;
-    
+export const contactValidation = (contact) => {    
     if(!contactRegex.test(contact)){
         toast.error('Contact no should be exactly 11 characters', {
             position: toast.POSITION.TOP_CENTER,
@@ -25,7 +27,6 @@ export const contactValidation = (contact) => {
 
 // password validation
 export const passwordValidation = (password) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&!?])[A-Za-z\d@#$%&!?]+$/;
     if(!passwordRegex.test(password)){
         toast.error('Password should contain at least one letter, one number, and one special character', {
             position: toast.POSITION.TOP_CENTER,

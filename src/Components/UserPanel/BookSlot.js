@@ -9,10 +9,9 @@ import slot5 from '../../assets/Images/slot5.jpg'
 import slot6 from '../../assets/Images/slot6.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 import { postRequest } from '../../Utils/requests';
-
 
 export default function BookSlot() {
   const [slotImage, setSlotImage] = useState(null);
@@ -20,22 +19,17 @@ export default function BookSlot() {
   const [selectedTime, setSelectedTime] = useState('');
   const [duration, setDuration] = useState('');
   const [bookSlots, setBookSlots] = useState([]);
-  // const [parkingAreaId, setParkingAreaId] = useState('');
   const navigate = useNavigate();
-  const {parkingAreaId} = useParams();
-  // const [slot, setslotImage] = useState('');
+  const location = useLocation();
+  const selectedImage = location.state?.selectedImage || null;
 
-    // const handleImageSelect = (image) => {
-    //     setSelectedImage(image)
-    // }
-
-
+  // slot booking
     const handleBookSlot = async (e) => {
       try {
         const token = localStorage.getItem('jwt');
         const decodedToken = jwtDecode(token)
        e.preventDefault();
-      //  ectract the slot number
+       //  ectract the slot number
        const slotNumber = slotImage ? slotImage.replace(/^.*?(slot\d+).*?\.jpg$/, '$1') : '';
 
       //  change the date into ISO string
@@ -48,34 +42,37 @@ export default function BookSlot() {
         });
         return;
       }
-
-        const response = await postRequest(`slotBooking/${decodedToken._id}`,{
+      
+      const response = await postRequest(`slotBooking`,{
+          userId : decodedToken._id,
           selectedDate: isoDateString,
           selectedTime,
           duration,
           slotImage: slotNumber,
-          parkingAreaId: parkingAreaId,
+          selectedImage: selectedImage
         })
-      
-          setBookSlots([...bookSlots, { slotNumber, selectedTime }]);
-          toast.success('Successfully Booked', {
-            position: toast.POSITION.TOP_CENTER,
-          });
-          navigate('/user-bookings');
+        setBookSlots([...bookSlots, { slotNumber, selectedTime }]);
+        toast.success('Successfully Booked', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        navigate('/user-bookings');
           
-          if (response.status === 400) {
+          if (response.status === 404) {
           // Slot is not available
           toast.error('Slot is not available', {
             position: toast.POSITION.TOP_CENTER,
           });
+
+          // const slotId = response.data._id;
         }
         
       } catch (error) {
-        toast.error('Booking Failed',
+        toast.error('Slot is already booked',
         { POSITION: toast.POSITION.TOP_CENTER});
       }
     }
    
+  // images in array
     const slotImages = [slot1, slot2, slot3, slot4, slot5, slot6];
   return (
     <div className='w-100% bg-black h-[100%] text-white mx-auto'>
@@ -98,10 +95,11 @@ export default function BookSlot() {
          />
         
         <label htmlFor='Start-Time' className='sm:m-5 max-sm:m-1'>Start Time </label><br/> 
-        <input type="time" name="Data" onChange={(e) => setSelectedTime( e.target.value)} className='text-red-800 px-14 sm:m-5 max-sm:m-1 py-1 rounded xl:w-[30%]
+        <input type="time" name="Time Selection" onChange={(e) => setSelectedTime( e.target.value)} className='text-red-800 px-14 sm:m-5 max-sm:m-1 py-1 rounded xl:w-[30%]
          ml-7 max-sm:text-xs max-sm:ml-3 max-sm:w-[65%]' />
         
-        <label htmlFor='select-hours' className='sm:m-5 max-sm:m-1'>Duration</label>
+        <label htmlFor='select-hours' className='sm:m-5 max-sm:m-1'>End Time</label>
+       
         <select name='hours-selection' onChange={(e) => setDuration( e.target.value)} className='text-red-800 md:px-20 px-10 sm:m-5 max-sm:m-1 py-1 
         rounded ml-10 xl:w-[30%] max-sm:text-xs  max-sm:ml-6 xl:ml-10'>
             <option className='bg-black font-bold hover:bg-red-700 hover:text-white'>--</option>
