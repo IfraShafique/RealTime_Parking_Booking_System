@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminNavbar from './AdminNavbar'
+import { getRequest } from '../../Utils/requests'
 
 export default function RegisteredUser() {
+
+  const [users, setUsers] =useState([])
+  const userDetails = () => {
+    try {
+      getRequest('get/users/details').then((response)=> {
+        setUsers(response.data)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(()=> {
+    userDetails()
+  },[])
   return (
     <div className='w-[100%] h-[100vh] bg-black text-white'>
       <AdminNavbar/>
@@ -35,56 +51,25 @@ export default function RegisteredUser() {
 
                 <tbody className="font-[arial] font-thin lg:text-xl sm:text-sm text-[0.6rem] ">
 
-
-                  <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
+                  {users.map((user) =>(
+                  <tr key={user._id} 
+                  className="lg:text-base sm:text-sm text-[0.6rem] ">
                     <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Dummy 1
+                      {user.name}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      dummy@gmail.com
+                      {user.email}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      03341234567                   
+                      {user.contact}                 
                        </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      1
+                    {user.slotBooking.length}
                     </th>
-                    {/* <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
-                      2 Hours
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%] text-green-700">
-                      Booked
-                    </th> */}
-                    {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
-                      <Link to={`/get-companies/${company._id}`}>Details</Link>
-                    </th> */}
+                    
                   </tr>
+                  )) }
 
-
-                  <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
-                    <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Dummy 2
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      dummy2@hmail.com
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      03341234567
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      3
-                    </th>
-                    {/* <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
-                      2 Hours
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%] text-green-700">
-                      Booked
-                    </th> */}
-                    {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
-                      <Link to={`/get-companies/${company._id}`}>Details</Link>
-                    </th> */}
-                  </tr>
-                  
                 </tbody>
               </table>
             </div>

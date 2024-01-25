@@ -1,8 +1,27 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import AdminNavbar from './AdminNavbar'
 import Feedback from './Feedback'
+import { getRequest } from '../../Utils/requests';
 
 export default function AdminDashboard() {
+
+  const [bookings, setBookings] = useState([]);
+
+  // fetch bookings
+  useEffect(() => {
+    const fetchBookings = () =>{
+   
+      getRequest(`get/users/Bookings`)
+        .then((response) => {
+         
+          setBookings(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        }); 
+    }
+    fetchBookings()
+  }, []);  
   return (
     <div className='w-[100%] h-[100%] bg-black text-white'>
       <AdminNavbar/>
@@ -17,76 +36,53 @@ export default function AdminDashboard() {
                 <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
                     User Name
                   </th>
-                  <th className="border-b-[1px]  border-red-700  w-[15%] pb-5">
+                    <th className="border-b-[1px]  border-red-700  w-[15%] pb-5">
                     Parking Area
-                  </th>
-                  <th className="border-b-[1px]  border-red-700  w-[15%] pb-5">
-                    Parking Slot
-                  </th>
-                  <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
-                    Data
-                  </th>
-                  <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
+                    </th>
+                    <th className="border-b-[1px]  border-red-700  w-[15%] pb-5">
+                    Slot
+                    </th>
+                    <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
+                    Date
+                    </th>
+                    <th className="border-b-[1px]  border-red-700 w-[15%] pb-5">
                     Time
-                  </th>
-                  <th className="border-b-[1px]  border-red-700 w-[8%] pb-5">
+                    </th>
+                    <th className="border-b-[1px]  border-red-700 w-[8%] pb-5">
                     Duration
-                  </th>
+                    </th>
+                   
                   
                 </thead>
 
                 <tbody className="font-[arial] font-thin lg:text-xl sm:text-sm text-[0.6rem] ">
+                {bookings.map((booking) => (
+                  <tr key={booking._id} className="lg:text-base sm:text-sm text-[0.6rem] ">
 
-                  <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
-                <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Dummy1
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Area 1
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      Slot 5
+                  <th className="border-b-[1px]  border-red-700 w-[15%] py-4">
+                    {booking.bookUser.name}
+                  </th>
+                  
+                  
+                   <th className="border-b-[1px] border-red-700 py-4 w-15%]">
+                      {booking.selectedImage}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      20-12-2023
+                      {booking.slotImage}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      6:00 PM
+                      {booking.selectedDate.toString().split('T')[0]}
+                    </th>
+                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
+                      {booking.selectedTime}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
-                      2 Hours
+                      {booking.duration}
                     </th>
                     
-                    {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
-                      <Link to={`/get-companies/${company._id}`}>Details</Link>
-                    </th> */}
                   </tr>
-
-
-                  <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
-                  <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Dummy2
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Area 2
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      Slot 1
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      14-12-2023
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      1:00 PM
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
-                      2 Hours
-                    </th>
-                    
-                    {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
-                      <Link to={`/get-companies/${company._id}`}>Details</Link>
-                    </th> */}
-                  </tr>
+                  ))}
+                  
                   
                 </tbody>
               </table>

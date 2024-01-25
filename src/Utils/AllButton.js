@@ -17,9 +17,10 @@ export const SendButton = ({ label, onClick }) => (
 );
 
 export const SubmitBtn = ({ label, onClick }) => (
-  <button className=" bg-red-800 text-white md:text-2xl text-xl px-9 xl:px-12 md:px-8 xl:py-2 py-1 
+  <button type="submit" className=" bg-red-800 text-white md:text-2xl text-xl px-9 xl:px-12 md:px-8 xl:py-2 py-1 
   font-semibold rounded-md shadow-md hover:bg-white hover:text-red-800 " 
-  onClick={onClick}>
+  onClick={onClick}
+ >
     {label}
   </button>
 );

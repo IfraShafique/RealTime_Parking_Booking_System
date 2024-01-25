@@ -16,6 +16,27 @@ export const postRequest = async (url, data) => {
     }
 }
 
+// get request
+export const getRequest = async (url, headers) => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_CONNECTION_URI}/${url}`, { headers });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// delete response
+export const deleteRequest = async (url) => {
+  try {
+    const response = await axios.delete(`${process.env.REACT_APP_CONNECTION_URI}/${url}`, {headers});
+    return response;
+  } catch (error) {
+    console.error('Error in delete request:', error);
+  }
+}
+
+
 // decoded token
 export const decodedToken = () => {
     try {

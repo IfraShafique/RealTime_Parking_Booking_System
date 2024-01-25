@@ -1,7 +1,31 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import UserNavbar from './UserNavbar'
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
+import { getRequest } from '../../Utils/requests';
 
 export default function DisplayBookings() {
+  const [bookings, setBookings] = useState([]);
+  // const {userId }= useParams();
+
+  useEffect(() => {
+    const fetchBookings = () =>{
+      const token = localStorage.getItem("jwt");
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken._id;
+   
+      getRequest(`getSlotBooking/${userId}`)
+        .then((response) => {
+          // console.log("API Response:", response.data);
+          setBookings(response.data.slotBooking);
+        })
+        .catch((error) => {
+          console.log(error);
+        }); 
+    }
+    fetchBookings()
+  }, []);  
+ 
   return (
     <div className='w-100% bg-black h-[100vh] text-white'>
     <UserNavbar/>
@@ -33,56 +57,29 @@ export default function DisplayBookings() {
                 </thead>
 
                 <tbody className="font-[arial] font-thin lg:text-xl sm:text-sm text-[0.6rem] ">
-
-
-                  <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
+ 
+                  {bookings.map((booking) =>(
+                  <tr key= {booking._id} className="lg:text-base sm:text-sm text-[0.6rem] ">
                     <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Area 1
+                      {booking.selectedImage}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      Slot 5
+                      {booking.slotImage}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      20-12-2023
+                      {booking.selectedDate.toString().split('T')[0]}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      6:00 PM
+                      {booking.selectedTime}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
-                      2 Hours
+                      {booking.duration}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%] text-green-700">
                       Booked
                     </th>
-                    {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
-                      <Link to={`/get-companies/${company._id}`}>Details</Link>
-                    </th> */}
                   </tr>
-
-
-                  <tr className="lg:text-base sm:text-sm text-[0.6rem] ">
-                    <th className="border-b-[1px] border-red-700 py-4 w-15%]">
-                      Area 2
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      Slot 1
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      14-12-2023
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      1:00 PM
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
-                      2 Hours
-                    </th>
-                    <th className="border-b-[1px] border-red-700 py-4 w-[15%] text-green-700">
-                      Booked
-                    </th>
-                    {/* <th className="border-b-[1px]  border-cyan-600 py-4 w-[8] text-cyan-500 hover:text-cyan-300">
-                      <Link to={`/get-companies/${company._id}`}>Details</Link>
-                    </th> */}
-                  </tr>
+                  ))} 
                   
                 </tbody>
               </table>
