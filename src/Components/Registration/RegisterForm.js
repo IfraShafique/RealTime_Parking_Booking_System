@@ -5,9 +5,9 @@ import { SubmitBtn } from "../../Utils/AllButton";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { postRequest, headers } from "../../Utils/requests";
-import { contactValidation, passwordValidation, valdateEmptyFields } from "../../Utils/validations";
-import axios from "axios";
+import { postRequest } from "../../Utils/requests";
+import {contactRegex, passwordRegex } from "../../Utils/validations";
+
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -15,107 +15,96 @@ export default function RegisterForm() {
     email: '',
     contact: '',
     password: '',
-    // Add more fields as needed
   });
 
   const handleInputChange = (fieldName, value) => {
-    console.log(`Updating ${fieldName} with value: ${value}`);
     setFormData({ ...formData, [fieldName]: value });
   };
   
 
   // Submit Function
+  
   const handleSubmit = async(e) => {
-    debugger; 
+    // debugger
     console.log('Handling submit...');
+    console.log('Form Data:', formData);
     e.preventDefault();
 
-    if(valdateEmptyFields(formData)){
-      return;
-    } 
+    const requiredFields = ['name', 'email', 'contact', 'password'];
+
+    const isAnyFieldEmpty = requiredFields.some(
+      (fieldName) => !formData[fieldName]
+    );
+  
+    if (isAnyFieldEmpty) {
+      toast.error('No fields can be empty', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+      return; // Prevent form submission if any field is empty
+    }
+
+    // if(valdateEmptyFields(formData)){
+    //   toast.error('No fields can be empty', {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    //   return;
+    // } 
     
     // Contact validation
-    else if(!contactValidation(formData.contact)){
-      return;
-    }
+    else if(!contactRegex.test(formData.contact)){
+      toast.error('Contact no should be exactly 11 characters', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        return;
+  }
    
-    
     // Password Validation 
     else if (formData.password.length < 6) {
       toast.error('Password must be consist of 6 characters', {
         position: toast.POSITION.TOP_CENTER,
       });
-      return;
+    return
     }
       // Password Validation
-      else if(!passwordValidation(formData.password)){
-        return;
-      }
-     
-      console.log('Form Data:', formData);
+      else if(!passwordRegex.test(formData.password)){
+        toast.error('Password should contain at least one letter, one number, and one special character', {
+            position: toast.POSITION.TOP_CENTER,
+    });
+    return
+}
       try {
-        console.log('API URL:', process.env.REACT_APP_CONNECTION_URI);
-      await postRequest('registration', formData, {
-        headers
-      })
-      toast.success('Registration Successful', {
-        position: 'top-center',
-      });
-      //   const response = await postRequest('registration', formData);
-  
-      //   console.log('Response from server:', response.data);
-  
-      //   // toast.success('Registration Successful', {
-      //   //   position: 'top-center',
-      //   // });
-
-      // // console.log('Response from server:', response);
-      
-      // toast.success('Registration Successful', {
-      //   position: 'top-center',
-      // });
-      // return response.data;
-      
-      // axios.post(
-      //   `${process.env.REACT_APP_CONNECTION_URI}/registration`,
-      //   formData,  // Remove the comma here
-      //   // {
-      //   //   withCredentials: true,  // Change "WithCredentials" to "withCredentials"
-      //   //   headers: {
-      //   //     'Content-Type': 'application/json',
-      //   //   },
-      //   // }
-      // );
-
-      // console.log(response.data);
-
-      // toast.success('Registration Successful', {
-      //   position: 'top-center',
-      // })
-
-      // // set field empty after submission
-      // setFormData({
-      //   name: '',
-      //   email: '',
-      //   contact: '',
-      //   password: '',
-      // })
-
-
-    } catch (error) {
-      console.error('Registration Failed', error);
-      toast.error('Registration Failed', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-  }
+        
+         const response =  await postRequest('registration', {
+            name: formData.name,
+            email: formData.email,
+            contact: formData.contact,
+            password: formData.password,
+          })
+          toast.success('Registration Successful', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // set field empty after submission
+          setFormData({
+            name: '',
+            email: '',
+            contact: '',
+            password: '',
+          })
+          return response.data;
+    
+      } catch (error) {
+        console.error('Registration Failed', error);
+        toast.error('Registration Failed', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    };
 
   const fields = [
     { name: 'name', label: 'Name', type: 'text' },
     { name: 'email', label: 'Email', type: 'email' },
     { name: 'contact', label: 'Contact', type: 'text' },
     { name: 'password', label: 'Password', type: 'password' },
-    // Add more fields as needed
   ];
 
   return (
@@ -147,11 +136,10 @@ export default function RegisterForm() {
                 name={field.name}
                 value={formData[field.name]}
                 onChange={(e) => {
-                  console.log(`Field: ${field.name}, Value: ${e.target.value}`);
                   handleInputChange(field.name, e.target.value);
                 }}
                 className="mt-2 p-2 border rounded-md w-[100%] xl:py-4 text-red-800 font-semibold xl:text-xl text-lg"
-                autoComplete="off" 
+                
               />
 
             </div>
@@ -159,7 +147,7 @@ export default function RegisterForm() {
 
           
           <div className="xl:mt-8 mt-4">
-            <SubmitBtn label="Register" onClick={handleSubmit} />
+            <SubmitBtn label="Register"  />
             
             <p className="xl:mt-4 mt-2 xl:text-xl sm:pb-10">
               Already have an account,{' '}

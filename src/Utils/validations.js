@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 
 // globally create the regex for contact and password validation
-const contactRegex = /^\d{11}$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&!?])[A-Za-z\d@#$%&!?]+$/;
+export const contactRegex = /^\d{11}$/;
+export const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%&!?])[A-Za-z\d@#$%&!?]+$/;
 
 // No field should be empty
 export const valdateEmptyFields = (formData) => {
