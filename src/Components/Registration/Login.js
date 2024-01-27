@@ -83,7 +83,6 @@ export default function Login() {
     } catch (error) {
       console.error('Login Error:', error);
       if (error.response) {
-        console.log('Response Data:', error.response.data);
         console.log('Response Status:', error.response.status);
   
         // Handle specific authentication errors

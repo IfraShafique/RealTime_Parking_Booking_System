@@ -10,7 +10,7 @@ export default function AdminDashboard() {
   // fetch bookings
   useEffect(() => {
     const fetchBookings = () =>{
-   
+      
       getRequest(`get/users/Bookings`)
         .then((response) => {
          

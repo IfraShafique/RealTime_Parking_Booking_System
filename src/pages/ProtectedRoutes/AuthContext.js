@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   // Function to set the user upon login
   const login = (userData) => {
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   // Function to check if the user is authenticated
   const isAuthenticated = () => {
-    return user !== undefined && user !== null;
+    return user !== null;
   };
 
   return (

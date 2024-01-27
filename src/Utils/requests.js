@@ -36,6 +36,16 @@ export const deleteRequest = async (url) => {
   }
 }
 
+// delete response
+export const putRequest = async (url, data) => {
+  try {
+    const response = await axios.put(`${process.env.REACT_APP_CONNECTION_URI}/${url}`, data);
+    return response;
+  } catch (error) {
+    console.error('Error in put request:', error);
+  }
+}
+
 
 // decoded token
 export const decodedToken = () => {
