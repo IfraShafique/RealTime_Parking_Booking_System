@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import UserNavbar from './UserNavbar'
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
-import { getRequest } from '../../Utils/requests';
+import { getRequest, formatDateTime } from '../../Utils/requests';
 
 export default function DisplayBookings() {
   const [bookings, setBookings] = useState([]);
@@ -70,7 +70,7 @@ export default function DisplayBookings() {
                       {booking.selectedDate.toString().split('T')[0]}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      {booking.selectedTime}
+                       {formatDateTime(booking.selectedTime)}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
                       {booking.duration}
