@@ -66,3 +66,19 @@ export const decodedToken = () => {
       return null;
     }
   };
+
+ // convert utc to local time zone
+  export const formatDateTime = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes);
+  
+    // Format time using toLocaleTimeString
+    const formattedTime = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+  
+    return formattedTime;
+  };
