@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from 'jwt-decode';
-import { getRequest, deleteRequest } from '../../Utils/requests';
+import { getRequest, deleteRequest, formatDateTime } from '../../Utils/requests';
 
 export default function CancelBooking() {
 
@@ -91,7 +91,7 @@ export default function CancelBooking() {
                       {booking.selectedDate.toString().split('T')[0]}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[15%]">
-                      {booking.selectedTime}
+                      {formatDateTime(booking.selectedTime)}
                     </th>
                     <th className="border-b-[1px] border-red-700 py-4 w-[8%]">
                       {booking.duration}
