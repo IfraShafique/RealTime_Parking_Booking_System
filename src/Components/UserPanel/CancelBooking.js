@@ -46,7 +46,7 @@ export default function CancelBooking() {
     }
   }
     return (
-        <div className='w-100% bg-black h-[100vh] text-white'>
+        <div className='w-100% bg-black h-[100%] text-white'>
         <UserNavbar/>
         <ToastContainer />
       <div className='mt-30 lg:p-40 max-md:px-5 max-md:pt-20'>
